@@ -6,3 +6,9 @@ Invoke-WebRequest 'https://download.docker.com/win/stable/Docker for Windows Ins
 ## Install Hyper-V Feature required for Docker Installation.
 "$(Get-Date) - Information - Initiating Hyper-V Feature installation."| Out-File C:\Configure.log -Append
 Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
+"$(Get-Date) - Information - Download Completed."| Out-File C:\Configure.log -Append
+
+## Install Docker for Windows
+"$(Get-Date) - Information - Initiating Docker for Windows installation."| Out-File C:\Configure.log -Append
+'C:\Docker for Windows Installer.exe' install --quiet
+"$(Get-Date) - Information - Docker for Windows installation completed."| Out-File C:\Configure.log -Append
