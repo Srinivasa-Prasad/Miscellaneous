@@ -87,7 +87,11 @@
             "apiVersion": "2018-08-01",
             "location": "[resourceGroup().location]",
             "properties": {
-                "publicIpAllocationMethod": "Dynamic"
+                "publicIpAllocationMethod": "Dynamic",
+                "dnsSettings": {
+                    "domainNameLabel": "srinivasalabspip",
+                    "fqdn": "srinivasalabspip.eastus.cloudapp.azure.com"
+                }
             },
             "sku": {
                 "name": "Basic"
