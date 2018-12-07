@@ -10,9 +10,9 @@ Install-WindowsFeature -Name Hyper-V -IncludeManagementTools
 
 ## Install Docker for Windows
 "$(Get-Date) - Information - Initiating Docker for Windows installation."| Out-File C:\Configure.log -Append
-## "C:\Docker for Windows Installer.exe" install --quiet
+"C:\Docker for Windows Installer.exe" install --quiet
 "$(Get-Date) - Information - Docker for Windows installation completed."| Out-File C:\Configure.log -Append
 
 ## Finally after all configuration. Restart Computer.
 ## CustomScriptExtension shouldn't be used for restarting computer. However this script is verified and tested OK.
-## Restart-Computer -Force
+Restart-Computer -Force
