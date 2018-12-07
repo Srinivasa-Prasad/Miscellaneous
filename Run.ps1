@@ -10,5 +10,5 @@ Install-WindowsFeature -Name Hyper-V -IncludeManagementTools -Restart
 
 ## Install Docker for Windows
 "$(Get-Date) - Information - Initiating Docker for Windows installation."| Out-File C:\Configure.log -Append
-'C:\Docker for Windows Installer.exe' install --quiet
+## "C:\Docker for Windows Installer.exe" install --quiet
 "$(Get-Date) - Information - Docker for Windows installation completed."| Out-File C:\Configure.log -Append
