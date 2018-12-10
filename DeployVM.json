@@ -1,36 +1,10 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
-        "BSBCC": {
-            "type": "string",
-            "metadata": {
-                "description": "Please specify the BSBCC required for chargeback."
-            },
-            "defaultvalue": "87001701"
-        },
-        "LANID": {
-            "type": "string",
-            "metadata": {
-                "description": "Please specify the LANID for provisioning."
-            },
-            "defaultvalue": "PRASASRI"
-        },
-        "OSType": {
-            "type": "string",
-            "allowedValues": [
-                "Visual Studio Enterprise 2017 on Windows Server 2016",
-                "Visual Studio Enterprise 2017 on Windows 10"
-            ],
-            "defaultValue": "Visual Studio Enterprise 2017 on Windows Server 2016",
-            "metadata": {
-                "description": "Please specify type of OS."
-            }
-        }
-    },
+    "parameters": {},
     "variables": {
-        "VirtualMachineName": "[concat(parameters('LANID'),if(equals(parameters('OSType'), 'Visual Studio Enterprise 2017 on Windows 10'), '-VS-W10', '-VS-WS'))]",
-        "VirtualMachinePassword": "[concat('Pass@', substring(guid(subscription().subscriptionId), 0, 8))]",
+        "VirtualMachineName": "VS2017-WS",
+        "VirtualMachinePassword": "P@ssw0rd1234",
         "InfraResourceGroup": "SrinivasaLabs-Infra",
         "VirtualNetworkName": "SrinivasaLabs-Network"
     },
@@ -49,14 +23,13 @@
                             "subnet": {
                                 "id": "[resourceId(variables('InfraResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', variables('VirtualNetworkName'), concat(variables('VirtualNetworkName'), '-Subnet1'))]"
                             },
-                            "privateIPAllocationMethod": "Dynamic"
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId(variables('InfraResourceGroup'), 'Microsoft.Network/publicIPAddresses', 'SrinivasaLabs-PIP')]"
+                            }
                         }
                     }
                 ]
-            },
-            "tags": {
-                "BSBCC": "[parameters('BSBCC')]",
-                "LANID": "[parameters('LANID')]"
             }
         },
         {
@@ -90,7 +63,7 @@
                     "imageReference": {
                         "publisher": "MicrosoftVisualStudio",
                         "offer": "VisualStudio",
-                        "sku": "[if(equals(parameters('OSType'), 'Visual Studio Enterprise 2017 on Windows 10'), 'VS-2017-Ent-Win10-N', 'VS-2017-Ent-WS2016')]",
+                        "sku": "VS-2017-Ent-WS2016",
                         "version": "latest"
                     },
                     "osDisk": {
@@ -101,11 +74,7 @@
             },
             "dependsOn": [
                 "[concat(variables('VirtualMachineName'), '-NIC')]"
-            ],
-            "tags": {
-                "BSBCC": "[parameters('BSBCC')]",
-                "LANID": "[parameters('LANID')]"
-            }
+            ]
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
@@ -126,21 +95,8 @@
             },
             "dependsOn": [
                 "[variables('VirtualMachineName')]"
-            ],
-            "tags": {
-                "BSBCC": "[parameters('BSBCC')]",
-                "LANID": "[parameters('LANID')]"
-            }    
+            ]    
         }
     ],
-    "outputs": {
-        "VirtualMachineName": {
-            "type": "string",
-            "value": "[variables('VirtualMachineName')]"
-        },
-        "VirtualMachinePassword": {
-            "type": "string",
-            "value": "[variables('VirtualMachinePassword')]"
-        }
-    }
+    "outputs": {}
 }
