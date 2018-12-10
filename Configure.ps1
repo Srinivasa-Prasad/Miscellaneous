@@ -1,4 +1,4 @@
-## Download Latest Docker Installer (Windows) from Docker Website.
+## Configure Visual Studio Code Installation.
 "$(Get-Date) - Information - Initiating PowerShell DSC Configuration."| Out-File C:\DSCConfigure.log -Append
 
 "$(Get-Date) - Information - Initiating Visual Studio Code Installation."| Out-File C:\DSCConfigure.log -Append
