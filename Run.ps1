@@ -31,6 +31,9 @@ Start-Process $EXE $Arguments -Wait
     
 "$(Get-Date) - Information - Completed Git Installation.."| Out-File C:\Configure.log -Append
 
+## Download AzureRm PowerShell Modules.
+Install-Package AzureRm -AllowClobber -Force -Confirm:$False
+
 ## Finally after all configuration. Restart Computer.
 ## CustomScriptExtension shouldn't be used for restarting computer. However this script is verified and tested OK.
 Restart-Computer -Force
