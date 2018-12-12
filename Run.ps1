@@ -26,7 +26,10 @@ Execute-InstallationCommand -CommandTitle 'Visual Studio Code' -CommandPath 'C:\
 Execute-InstallationCommand -CommandTitle 'Git for Windows' -CommandPath 'C:\Git.exe' -CommandArguments '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /COMPONENTS="icons,ext\reg\shellhere,assoc,assoc_sh"'
 
 ## Visual Studio Code Extension Installations.
-Execute-InstallationCommand -CommandTitle 'Visual Studio Code PowerShell Extension' -CommandPath 'C:\Program Files\Microsoft VS Code\Code.exe' -CommandArguments '--install-extension ms-vscode.powershell'
+## Execute-InstallationCommand -CommandTitle 'Visual Studio Code (PowerShell Extension)' -CommandPath 'C:\Program Files\Microsoft VS Code\Code.exe' -CommandArguments '--install-extension ms-vscode.powershell'
+## Execute-InstallationCommand -CommandTitle 'Visual Studio Code (Azure Resource Manager Tools)' -CommandPath 'C:\Program Files\Microsoft VS Code\Code.exe' -CommandArguments '--install-extension msazurermtools.azurerm-vscode-tools'
+## Execute-InstallationCommand -CommandTitle 'Visual Studio Code (Azure Repos)' -CommandPath 'C:\Program Files\Microsoft VS Code\Code.exe' -CommandArguments '--install-extension ms-vsts.team'
+## Execute-InstallationCommand -CommandTitle 'Visual Studio Code (Azure Repos)' -CommandPath 'C:\Program Files\Microsoft VS Code\Code.exe' -CommandArguments '--install-extension peterjausovec.vscode-docker'
 
 ## Download AzureRm, AzureAD, GetPassword, BitBucket.v2, PackageManagement, Pester, Posh-Get, PowerShellGet PowerShell Modules.
 Install-Package AzureRm -AllowClobber -Force -Confirm:$False
