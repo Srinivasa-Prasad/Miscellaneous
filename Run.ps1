@@ -45,8 +45,15 @@ Start-Process $EXE $Arguments -Wait
     
 "$(Get-Date) - Information - Completed Git Installation.."| Out-File C:\Configure.log -Append
 
-## Download AzureRm PowerShell Modules.
+## Download AzureRm, AzureAD, GetPassword, BitBucket.v2, PackageManagement, Pester, Posh-Get, PowerShellGet PowerShell Modules.
 Install-Package AzureRm -AllowClobber -Force -Confirm:$False
+Install-Package AzureAD -AllowClobber -Force -Confirm:$False
+Install-Package GetPassword -AllowClobber -Force -Confirm:$False
+Install-Package BitBucket.v2 -AllowClobber -Force -Confirm:$False
+Install-Package PackageManagement -AllowClobber -Force -Confirm:$False
+Install-Package Pester -AllowClobber -Force -Confirm:$False
+Instlal-Package Posh-Git -AllowClobber -Force -Confirm:$False
+Instlal-Package PowerShellGet -AllowClobber -Force -Confirm:$False
 
 ## Finally after all configuration. Restart Computer.
 ## CustomScriptExtension shouldn't be used for restarting computer. However this script is verified and tested OK.
