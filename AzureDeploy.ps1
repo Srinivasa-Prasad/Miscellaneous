@@ -1,6 +1,6 @@
 Import-Module AzureRm
 
-If(!(Get-AzureRmContext)){
+If((Get-AzureRmContext).Account.Id -ne 'srinivasa.prasad@hotmail.com'){
     Connect-AzureRmAccount
 }
 
