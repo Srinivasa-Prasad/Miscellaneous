@@ -3,14 +3,15 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {
-        "VirtualMachineName": "VS2017-WS",
-        "VirtualMachinePassword": "P@ssw0rd1234",
-        "InfraResourceGroup": "SrinivasaLabs-Infra",
-        "VirtualNetworkName": "SrinivasaLabs-Network"
+        "VMName": "VS2017WS",
+        "VMUser": "P@ssw0rd1234",
+        "VMPassword": "P@ssw0rd1234",
+        "ResourceGroup": "SrinivasaLabs-Infra",
+        "vNetName": "SrinivasaLabs-Network"
     },
     "resources": [
         {
-            "name": "[concat(variables('VirtualMachineName'), '-NIC')]",
+            "name": "[concat(variables('VMName'), '-NIC')]",
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2017-06-01",
             "location": "[resourceGroup().location]",
@@ -21,11 +22,11 @@
                         "name": "ipconfig1",
                         "properties": {
                             "subnet": {
-                                "id": "[resourceId(variables('InfraResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', variables('VirtualNetworkName'), concat(variables('VirtualNetworkName'), '-Subnet1'))]"
+                                "id": "[resourceId(variables('ResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), concat(variables('vNetName'), '-Subnet1'))]"
                             },
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId(variables('InfraResourceGroup'), 'Microsoft.Network/publicIPAddresses', 'SrinivasaLabs-PIP')]"
+                                "id": "[resourceId(variables('ResourceGroup'), 'Microsoft.Network/publicIPAddresses', 'SrinivasaLabs-PIP')]"
                             }
                         }
                     }
@@ -35,13 +36,13 @@
         {
             "apiVersion": "2018-10-01",
             "type": "Microsoft.Compute/virtualMachines",
-            "name": "[concat(variables('VirtualMachineName'))]",
+            "name": "[concat(variables('VMName'))]",
             "location": "[resourceGroup().location]",
             "properties": {
                 "osProfile": {
-                    "computerName": "[variables('virtualMachineName')]",
-                    "adminUsername": "[concat(variables('VirtualMachineName'),'Admin')]",
-                    "adminPassword": "[variables('VirtualMachinePassword')]",
+                    "computerName": "[variables('VMName')]",
+                    "adminUsername": "[variables('VMUser')]",
+                    "adminPassword": "[variables('VMPassword')]",
                     "windowsConfiguration": {
                         "provisionVmAgent": "true"
                     }
@@ -52,7 +53,7 @@
                             "properties": {
                                 "primary": true
                             },
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('VirtualMachineName'), '-NIC'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('VMName'), '-NIC'))]"
                         }
                     ]
                 },
@@ -73,12 +74,12 @@
                 "licenseType": "Windows_Client"
             },
             "dependsOn": [
-                "[concat(variables('VirtualMachineName'), '-NIC')]"
+                "[concat(variables('VMName'), '-NIC')]"
             ]
         },
         {
             "type": "Microsoft.Compute/virtualMachines/extensions",
-            "name": "[concat(variables('VirtualMachineName'),'/RunPS')]",
+            "name": "[concat(variables('VMName'),'/RunPS')]",
             "apiVersion": "2015-06-15",
             "location": "[resourceGroup().location]",
             "properties": {
@@ -94,7 +95,7 @@
                 }
             },
             "dependsOn": [
-                "[variables('VirtualMachineName')]"
+                "[variables('VMName')]"
             ]    
         }
     ],
