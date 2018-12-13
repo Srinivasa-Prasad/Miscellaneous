@@ -4,7 +4,7 @@
     "parameters": {},
     "variables": {
         "VMName": "VS2017WS",
-        "VMUser": "P@ssw0rd1234",
+        "VMUser": "VMAdmin",
         "VMPassword": "P@ssw0rd1234",
         "ResourceGroup": "SrinivasaLabs-Infra",
         "vNetName": "SrinivasaLabs-Network"
