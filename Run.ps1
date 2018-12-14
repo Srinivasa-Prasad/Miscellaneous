@@ -17,8 +17,10 @@ Install-WindowsFeature -Name Hyper-V -IncludeManagementTools
 
 ## Download Installer Files.
 Download-WebInstallerFile -FileTitle 'Docker for Windows (Docker Website)' -DestinationFile 'C:\Docker for Windows Installer.exe' -SourceFile 'https://download.docker.com/win/stable/Docker for Windows Installer.exe'
+Download-WebInstallerFile -FileTitle 'Putty (Putty Website)' -DestinationFile 'C:\Putty.msi' -SourceFile 'https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi'
 Download-WebInstallerFile -FileTitle 'Visual Studio Code (Blob)' -DestinationFile 'C:\VSCodeSetup.exe' -SourceFile 'https://srinivasablobstorage.file.core.windows.net/downloads/VSCodeSetup-x64-1.29.1.exe?st=2018-12-10T04%3A04%3A40Z&se=2020-01-01T04%3A04%3A00Z&sp=rl&sv=2018-03-28&sr=f&sig=HcgbJvJkyCkrdRWSw57cZdgtkG40u70tt92EHyux374%3D'
 Download-WebInstallerFile -FileTitle 'Git (Blob)' -DestinationFile 'C:\Git.exe' -SourceFile 'https://srinivasablobstorage.file.core.windows.net/downloads/Git-2.19.1-64-bit.exe?st=2018-12-11T23%3A42%3A12Z&se=2020-12-30T23%3A42%3A00Z&sp=rl&sv=2018-03-28&sr=f&sig=NIGD9JpQw1U2L5GbTSHoFGpEs4jg8Fzwhgg7kvxDHE8%3D'
+Download-WebInstallerFile -FileTitle '7-Zip (7-Zip Website)' -DestinationFile 'C:\7z.msi' -SourceFile 'https://www.7-zip.org/a/7z1805-x64.msi'
 
 ## Run Installation commands.
 Execute-InstallationCommand -CommandTitle 'Docker for Windows' -CommandPath 'C:\Docker for Windows Installer.exe' -CommandArguments 'install --quiet'
