@@ -28,6 +28,10 @@ Download-WebInstallerFile -FileTitle 'Putty (Putty Website)' -DestinationFile 'C
 Execute-InstallationCommand -CommandTitle 'Docker for Windows' -CommandPath 'C:\Docker for Windows Installer.exe' -CommandArguments 'install --quiet'
 Execute-InstallationCommand -CommandTitle 'Visual Studio Code' -CommandPath 'C:\VSCodeSetup.exe' -CommandArguments '/VERYSILENT /MERGETASKS=!runcode'
 Execute-InstallationCommand -CommandTitle 'Git for Windows' -CommandPath 'C:\Git.exe' -CommandArguments '/VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /COMPONENTS="icons,ext\reg\shellhere,assoc,assoc_sh"'
+Execute-InstallationCommand -CommandTitle '7z' -CommandPath 'C:\Windows\System32\MsiExec.exe' -CommandArguments '/i C:\7z.msi /qn'
+Execute-InstallationCommand -CommandTitle 'Putty' -CommandPath 'C:\Windows\System32\MsiExec.exe' -CommandArguments '/i C:\Putty.msi /qn'
+Execute-InstallationCommand -CommandTitle 'Azure Data Studio' -CommandPath 'C:\AzureDataStudio.exe' -CommandArguments '/VERYSILENT /MERGETASKS=!runcode'
+Execute-InstallationCommand -CommandTitle 'Azure Storage Explorer' -CommandPath 'C:\AzureStorageExplorer.exe' -CommandArguments '/VERYSILENT /MERGETASKS=!runcode'
 
 ## Download AzureRm, AzureAD, GetPassword, BitBucket.v2, PackageManagement, Pester, Posh-Get, PowerShellGet PowerShell Modules.
 Install-Package AzureRm -AllowClobber -Force -Confirm:$False
