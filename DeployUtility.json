@@ -1,0 +1,103 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {
+        "VMName": "VS2017WS",
+        "VMUser": "VMAdmin",
+        "VMPassword": "P@ssw0rd1234",
+        "ResourceGroup": "SrinivasaLabs-Infra",
+        "vNetName": "SrinivasaLabs-Network"
+    },
+    "resources": [
+        {
+            "name": "[concat(variables('VMName'), '-NIC')]",
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2017-06-01",
+            "location": "[resourceGroup().location]",
+            "comments": "This will be your Primary NIC",
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId(variables('ResourceGroup'), 'Microsoft.Network/virtualNetworks/subnets', variables('vNetName'), concat(variables('vNetName'), '-Subnet1'))]"
+                            },
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId(variables('ResourceGroup'), 'Microsoft.Network/publicIPAddresses', 'SrinivasaLabs-PIP')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "apiVersion": "2018-10-01",
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[concat(variables('VMName'))]",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "osProfile": {
+                    "computerName": "[variables('VMName')]",
+                    "adminUsername": "[variables('VMUser')]",
+                    "adminPassword": "[variables('VMPassword')]",
+                    "windowsConfiguration": {
+                        "provisionVmAgent": "true"
+                    }
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "properties": {
+                                "primary": true
+                            },
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', concat(variables('VMName'), '-NIC'))]"
+                        }
+                    ]
+                },
+                "hardwareProfile": {
+                    "vmSize": "Standard_D2s_v3"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftVisualStudio",
+                        "offer": "VisualStudio",
+                        "sku": "VS-2017-Ent-WS2016",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "createOption": "FromImage"
+                    }
+                },
+                "licenseType": "Windows_Client"
+            },
+            "dependsOn": [
+                "[concat(variables('VMName'), '-NIC')]"
+            ]
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachines/extensions",
+            "name": "[concat(variables('VMName'),'/RunPS')]",
+            "apiVersion": "2015-06-15",
+            "location": "[resourceGroup().location]",
+            "properties": {
+                "publisher": "Microsoft.Compute",
+                "type": "CustomScriptExtension",
+                "typeHandlerVersion": "1.8",
+                "autoUpgradeMinorVersion": true,
+                "settings": {
+                    "fileUris": [
+                        "https://raw.githubusercontent.com/Srinivasa-Prasad/Miscellaneous/master/Run.ps1"
+                    ],
+                    "commandToExecute": "powershell.exe -ExecutionPolicy Unrestricted -File Run.ps1"
+                }
+            },
+            "dependsOn": [
+                "[variables('VMName')]"
+            ]    
+        }
+    ],
+    "outputs": {}
+}
